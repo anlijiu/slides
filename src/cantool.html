@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>can tool - 发送CAN数据帧的一个小工具</title>
+
+		<meta name="description" content="linux 下向CAN总线发送数据帧的一个小工具">
+		<meta name="author" content="安立久">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<!-- <link rel="stylesheet" href="css/print/pdf.css"> -->
+		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>一个CAN工具的诞生过程</h2>
+          <br/>
+					<p>
+						<small>Created by anlijiu</small>
+					</p>
+				</section>
+
+				<section style="text-align: left;">
+					<h2>Purpose</h2>
+          <p>
+            lt is purpose that created us.
+          </p>
+          <p>
+            Purpose that connects us. Purpose that pulls us.
+          </p>
+          <p>
+            That guides us. That drives us.
+          </p>
+          <p>
+            lt is purpose that defines. Purpose that binds us.
+          </p>
+          <br/>
+          <div style="float:right">--- Agent Smith《The Matrix Reloaded》</div>
+				</section>
+				<section>
+				  <section>
+						<h2>选择</h2>
+						<ul>
+							<li>spy3</li>
+							<li>canoe</li>
+							<li>CAN分析仪</li>
+						</ul>
+				  </section>
+				  <section>
+						<h2>技术栈</h2>
+            <ul>
+              <li>c++</li>
+              <li>javascript</li>
+              <li>electron</li>
+              <li>napi</li>
+              <li>react</li>
+              <li>redux</li>
+              <li>material design</li>
+              <li>postcss</li>
+						</ul>
+				  </section>
+				</section>
+
+				<section>
+					<section data-background="assets/cantool/大框.jpg" data-background-size="contain">
+            <div style="margin: 0 3rem;">
+							<div class="dakuang fragment">
+							  <div class="user_l  mx-auto fragment">
+							    <p class="frament"> 加载dbc文件
+							    </p>
+							    <p class="frament"> 开启关闭设备
+							    </p>
+							  </div>
+							  <div class="user_r mx-auto fragment">
+							    <p class="frament"> 增删要发送的信号
+							    </p>
+							    <p class="frament"> 改发送策略/数值
+							    </p>
+							  </div>
+                
+							  <div class="elec_l mx-auto fragment">
+							    <p class="frament"> 界面展示
+							    </p>
+							  </div>
+							  <div class="elec_r mx-auto fragment">
+                  <p class="frament"> 
+                    调用native接口
+                    完成功能
+							    </p>
+							    <p class="frament"> 
+							    </p>
+							  </div>
+                
+							  <div class="node_l mx-auto fragment">
+                  <p class="frament"> 
+                    对上层提供接口
+                    <br/>
+                    维护发送线程
+							    </p>
+							  </div>
+                
+							  <div class="node_r mx-auto fragment">
+                  <p class="frament"> 
+                    调用libcancontrol
+                  </p>
+                </div>
+							  <div class="lib mx-auto fragment">
+							    api
+							  </div>
+						 </div>
+           </div>
+          </section>
+					<section data-background="assets/cantool/flow.jpg" data-background-size="contain">
+          </section>
+        </section>
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+            <h3>node-can功能</h3>
+						<ul>
+							<li>调用libcontrolcan.so发送数据帧</li>
+							<li>调用libcontrolcan.so接受数据帧</li>
+							<li>从上层接受报文定义</li>
+							<li>从上层接受发送策略定义(目前只完成了固定数值策略)</li>
+							<li>维护一陀待发送报文定义</li>
+							<li>从报文定义 -> 生成数据帧</li>
+							<li>将数据帧解析为 -> 报文类</li>
+							<li>启动/关闭发射线程</li>
+						</ul>
+					</section>
+				  <section data-background="assets/cantool/node-can-class-uml.jpg" data-background-size="contain">
+          </section>
+				</section>
+
+        <section>
+					<section>
+						<h2>Electron</h2>
+						<p>
+              使用 JavaScript, HTML 和 CSS 构建跨平台的桌面应用
+							<a href="https://electronjs.org/" target="_blank">https://electronjs.org</a>.
+						</p>
+            <br />
+            <p>
+              <a href="https://www.zhihu.com/question/53230344" target="_blank">Why electron?</a>
+            </p>
+					</section>
+          <section>
+            <ul>
+              <li>
+                ipcMain
+              </li>
+              <li>
+                ipcRender
+              </li>
+            </ul>
+            <br />
+            <img src="assets/cantool/ipcMain-ipcRender.jpg" class="border-0 bg-transparent shadow-none">
+          </section>
+        </section>
+
+        <section>
+					<section>
+						<h2>React</h2>
+						<p>
+              React 是一个用于构建用户界面的 JAVASCRIPT 库。
+              <br />
+              View in MV*
+						</p>
+              <br />
+						<p>
+							<a href="http://www.runoob.com/react/react-tutorial.html">runoob.com</a>
+						</p>
+					</section>
+          <section>
+            <h2>简单的例子</h2>
+            <pre><code class="hljs" style="word-wrap: break-word;max-height:500px;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src="http://fb.me/react-0.12.1.js"&gt;&lt;/script&gt;
+    &lt;script src="http://fb.me/JSXTransformer-0.12.1.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="example"&gt;&lt;/div&gt;
+    &lt;script type="text/jsx"&gt;
+      React.render(
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+        document.getElementById('example')
+      );
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+          </section>
+          <section>
+            <h2>另一个简单的例子</h2>
+            <pre><code class="hljs" style="word-wrap: break-word;max-height:500px;">
+class MyContainer extends PureComponent {
+  ...
+  render() {
+    return (&lt;div&gt;xxx&lt;/div&gt;)
+  }
+}
+
+... 
+
+&lt;MyContainer&gt;
+  &lt;MyFirstComponent /&gt;
+  &lt;MySecondComponent /&gt;
+&lt;/MyContainer&gt;
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+					<section>
+						<h2>Redux</h2>
+						<p>
+							应用程序状态管理库: 解决单页应用痛点.
+						</p>
+            <a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html">tutorial</a>
+					</section>
+          <section>
+            <h2>设计思想</h2>
+            <ul>
+              <li>
+                Web 应用是一个状态机，视图与状态是一一对应的。
+              </li>
+              <li>
+                所有的状态，保存在一个对象里面。
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>准则</h2>
+            <ul>
+              <li>
+                单一数据源
+                整个应用状态，都应该被存储在单一store的对象树中。
+              </li>
+              <li>
+                只读状态
+                唯一可以修改状态的方式，就是发送（dispatch）一个动作（Action）
+              </li>
+              <li>
+                使用纯函数去修改状态(纯函数是指 不依赖于且不改变它作用域之外的变量状态即与系统状态无关 的函数。)
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h3> redux的缺点：</h3>
+              <p>
+              一个组件所有的数据，必须由父组件传过来，而不能像flux中直接从store取。
+              当一个组件相关数据更新时，即使父组件不需要用到这个组件，父组件不需要用到这个组件，父组件还是会重新render，可能会有效率影响，或者需要写复杂的shouldComponentUpdate进行判断。。
+            </p>
+            <h3> redux的优点 ：</h3>
+            <p>
+                redux把流程规范了，统一渲染根节点虽然对代码管理上规范了一些，只要有需要显示数据的组件，当相关数据更新时都会自动进行更新。
+            </p>
+          </section>
+          <section>
+            <img src="assets/cantool/redux-1.jpeg" class="border-0 bg-transparent shadow-none">
+          </section>
+          <section>
+            <img src="assets/cantool/redux-2.jpeg" class="border-0 bg-transparent shadow-none">
+          </section>
+          <section>
+            <img src="assets/cantool/redux-react.jpeg" class="border-0 bg-transparent shadow-none">
+          </section>
+        </section>
+
+				<section data-background="assets/cantool/ui结构.png" data-background-size="contain">
+        </section>
+
+        <section>
+          <section>
+            <h2>redux代码组织结构模块化</h2>
+            <p><a href="https://github.com/erikras/ducks-modular-redux">duck module</a></p>
+            <img src="assets/cantool/module.png" class="border-0 bg-transparent shadow-none">
+          </section>
+					<section data-background="assets/cantool/modules-structure.png">
+          </section>
+        </section>
+
+				<section style="text-align: left;">
+					<h1>Thank you</h1>
+          <br/>
+					<p>
+						没有人是一座孤岛，可以自全。
+          </p>
+          <p style="text-align: right;">
+            ---《丧钟为谁而鸣》
+          </p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="lib/js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+        pdfMaxPagesPerSlide: 1,
+				width: 960,
+				height: 700,
+      
+				// Factor of the display size that should remain empty around the content
+				margin: 0.1,
+      
+				// Bounds for smallest/largest possible scale to apply to content
+				minScale: 0.2,
+				maxScale: 1.5,
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+        slideNumber: true,
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

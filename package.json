@@ -1,0 +1,50 @@
+{
+  "name": "my slides",
+  "version": "1.0.0",
+  "description": "Slides for all my staff",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && webpack",
+    "start": "node bin/dev-server",
+    "deploy": "gh-pages-deploy",
+    "clean-source": "rimraf src node_modules package.json package-lock.json"
+  },
+  "keywords": [],
+  "author": "An Lijiu<anlijiu@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "compression": "^1.7.2",
+    "copy-webpack-plugin": "^4.5.0",
+    "css-loader": "^0.28.10",
+    "debug": "^3.1.0",
+    "file-loader": "^1.1.11",
+    "highlight.js": "^9.12.0",
+    "html-webpack-plugin": "^3.0.4",
+    "imports-loader": "^0.8.0",
+    "jquery": "^3.2.1",
+    "postcss-loader": "^2.1.1",
+    "reveal.js": "^3.6.0",
+    "style-loader": "^0.20.2",
+    "tailwindcss": "^0.2.2",
+    "webpack": "^4.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.1.0",
+    "express": "4.16.2",
+    "pixrem": "^4.0.1",
+    "pleeease-filters": "4.0.0",
+    "postcss-color-function": "^4.0.1",
+    "postcss-grid-kiss": "^1.4.2",
+    "postcss-nested": "^3.0.0",
+    "postcss-nesting": "^4.2.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-middleware": "^3.0.0",
+    "webpack-hot-middleware": "^2.21.1"
+  }
+}
